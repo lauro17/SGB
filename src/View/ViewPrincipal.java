@@ -109,10 +109,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
                          "WHERE TABLE_SCHEMA = '" + jComboBox1.getSelectedItem (). ToString () + "'"); */
                         ResultSet r = statement.executeQuery("SHOW TABLES;");
                         // Adicionar tabela de tabelas para combobox
-                        while (r.next()) {
+                        while (r.next()) { 
                             //jComboBox2.addItem(rs.getString(1));
                             //System.out.println("Tabelas: " + r.getString(1));
-                            tabela = new DefaultMutableTreeNode(r.getString(1));
+                            tabela = new DefaultMutableTreeNode(r.getString(1)); 
                             banco.add(tabela);
                             System.out.println("tabela: " + r.getString(1));
 
@@ -324,7 +324,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 51, 51));
 
-        jeResultado.setBackground(new java.awt.Color(0, 0, 0));
         jeResultado.setForeground(new java.awt.Color(66, 246, 36));
         jScrollPane3.setViewportView(jeResultado);
 
@@ -336,7 +335,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
         );
 
         jSplitPane3.setRightComponent(jPanel7);
