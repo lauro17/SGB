@@ -95,7 +95,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         banco = new DefaultMutableTreeNode(rs.getString("TABLE_CAT"));
                         root.add(banco);
                         // Declaração inicial
-                        statement = connect.createStatement(); 
+                        statement = connect.createStatement();   
                         // Definir DB atual
                         // !!! AVISO PARA CITAÇÕES - é backticks (`), não" e não '!!!
                         // !!! BACKTICKS SÃO REQUERIDOS SE O NOME DA TABELA CONTÉM ESPAÇOS !!!
@@ -109,7 +109,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                          "WHERE TABLE_SCHEMA = '" + jComboBox1.getSelectedItem (). ToString () + "'"); */
                         ResultSet r = statement.executeQuery("SHOW TABLES;");
                         // Adicionar tabela de tabelas para combobox
-                        while (r.next()) { 
+                        while (r.next()) {  
                             //jComboBox2.addItem(rs.getString(1));
                             //System.out.println("Tabelas: " + r.getString(1));
                             tabela = new DefaultMutableTreeNode(r.getString(1)); 
