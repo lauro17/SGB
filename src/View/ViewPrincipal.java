@@ -89,7 +89,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 //connect = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "");
                 connect = DriverManager.getConnection(utilSessao.Sevidor, utilSessao.Usuario, utilSessao.Senha);
                 //pega os meta dados
-                DatabaseMetaData databaseMetaData = myConn.getMetaData();
+                DatabaseMetaData databaseMetaData = connect.getMetaData();
                 //seta o nome do produto
                 jlNomeProduto.setText("Nome Produto: " + databaseMetaData.getDatabaseProductName());
                 jlVersão.setText("Versão Produto: " + databaseMetaData.getDatabaseProductVersion());
