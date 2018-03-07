@@ -4,6 +4,7 @@ package View;
 
 import Util.UtilSessao;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -87,6 +88,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 Class.forName(utilSessao.Driver);
                 //connect = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "");
                 connect = DriverManager.getConnection(utilSessao.Sevidor, utilSessao.Usuario, utilSessao.Senha);
+                //pega os meta dados
+                DatabaseMetaData databaseMetaData = myConn.getMetaData();
+                //seta o nome do produto
+                jlNomeProduto.setText("Nome Produto: " + databaseMetaData.getDatabaseProductName());
+                jlVersão.setText("Versão Produto: " + databaseMetaData.getDatabaseProductVersion());
+                //Display informações sobre JDBC Driver
+                jlDriverNome.setText("JDBC Driver name: " + databaseMetaData.getDriverName());
+                jlVersaoDriver.setText("JDBC Driver version: " + databaseMetaData.getDriverVersion());
+
                 try {
                     ResultSet rs = connect.getMetaData().getCatalogs();
                     root = new DefaultMutableTreeNode("Bando de Dados");
@@ -95,7 +105,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         banco = new DefaultMutableTreeNode(rs.getString("TABLE_CAT"));
                         root.add(banco);
                         // Declaração inicial
-                        statement = connect.createStatement();   
+                        statement = connect.createStatement();
                         // Definir DB atual
                         // !!! AVISO PARA CITAÇÕES - é backticks (`), não" e não '!!!
                         // !!! BACKTICKS SÃO REQUERIDOS SE O NOME DA TABELA CONTÉM ESPAÇOS !!!
@@ -109,10 +119,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
                          "WHERE TABLE_SCHEMA = '" + jComboBox1.getSelectedItem (). ToString () + "'"); */
                         ResultSet r = statement.executeQuery("SHOW TABLES;");
                         // Adicionar tabela de tabelas para combobox
-                        while (r.next()) {  
+                        while (r.next()) {
                             //jComboBox2.addItem(rs.getString(1));
                             //System.out.println("Tabelas: " + r.getString(1));
-                            tabela = new DefaultMutableTreeNode(r.getString(1)); 
+                            tabela = new DefaultMutableTreeNode(r.getString(1));
                             banco.add(tabela);
                             System.out.println("tabela: " + r.getString(1));
 
@@ -181,10 +191,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         shapeTabbedPane1 = new swing.xp.ShapeTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jlNomeProduto = new javax.swing.JLabel();
+        jlVersão = new javax.swing.JLabel();
+        jlDriverNome = new javax.swing.JLabel();
+        jlVersaoDriver = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -234,13 +244,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 102));
 
-        jLabel1.setText("jLabel1");
+        jlNomeProduto.setText("Nome Produto");
 
-        jLabel2.setText("jLabel2");
+        jlVersão.setText("Versão");
 
-        jLabel3.setText("jLabel3");
+        jlDriverNome.setText("Nome Driver");
 
-        jLabel4.setText("jLabel4");
+        jlVersaoDriver.setText("Versão do Driver");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -249,23 +259,23 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(512, Short.MAX_VALUE))
+                    .addComponent(jlVersaoDriver)
+                    .addComponent(jlDriverNome)
+                    .addComponent(jlVersão)
+                    .addComponent(jlNomeProduto))
+                .addContainerGap(466, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jlNomeProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(jlVersão)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jlDriverNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jlVersaoDriver)
                 .addContainerGap(167, Short.MAX_VALUE))
         );
 
@@ -399,7 +409,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 //                tm.setColumnCount(0);
                 for (int x = 1; x <= meta.getColumnCount(); x++) {
                     //pega os nomes das colunas
-                    modelo.addRow(new Object[]{meta.getColumnName(x).toLowerCase(),meta.getColumnTypeName(x).toLowerCase()  + "(" + meta.getColumnDisplaySize(x) + ")"});
+                    modelo.addRow(new Object[]{meta.getColumnName(x).toLowerCase(), meta.getColumnTypeName(x).toLowerCase() + "(" + meta.getColumnDisplaySize(x) + ")"});
 
                 }
                 // Declaração fechada
@@ -458,10 +468,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -481,6 +487,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTree jTree1;
     private javax.swing.JEditorPane jeResultado;
+    private javax.swing.JLabel jlDriverNome;
+    private javax.swing.JLabel jlNomeProduto;
+    private javax.swing.JLabel jlVersaoDriver;
+    private javax.swing.JLabel jlVersão;
     private swing.xp.ShapeTabbedPane shapeTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
