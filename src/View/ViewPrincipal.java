@@ -95,7 +95,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         banco = new DefaultMutableTreeNode(rs.getString("TABLE_CAT"));
                         root.add(banco);
                         // Declaração inicial
-                        statement = connect.createStatement();
+                        statement = connect.createStatement(); 
                         // Definir DB atual
                         // !!! AVISO PARA CITAÇÕES - é backticks (`), não" e não '!!!
                         // !!! BACKTICKS SÃO REQUERIDOS SE O NOME DA TABELA CONTÉM ESPAÇOS !!!
